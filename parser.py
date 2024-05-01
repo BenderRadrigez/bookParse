@@ -43,13 +43,13 @@ async def main():
 
                 list_books.append({'title': title_text, 'authors': author, 'bookLink': book_link, 'imgLink': book_img, 'downloadLink': f'https://readli.net{link_to_download}', 'description': description})
     
-while True:
-    if  __name__ == "__main__":
+if  __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    while True:
         for i in range(PAGES_START, PAGES_FINISH+1, 1):
-            print(i)
             page_url = f"{BASE_URL}page/{i}/"
-            loop = asyncio.get_event_loop()
             loop.run_until_complete(main())
+            print(f'Page {i} is done\n')
     
         with open(f"./pagesJson/pages{PAGES_START}-{PAGES_FINISH}.json", "w+") as fp:
             json.dump(list_books, fp)
